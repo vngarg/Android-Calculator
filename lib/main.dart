@@ -1,5 +1,3 @@
-import 'dart:math';
-
 import 'package:flutter/material.dart';
 import 'package:math_expressions/math_expressions.dart';
 
@@ -25,7 +23,6 @@ class SimpleCalculator extends StatefulWidget {
 }
 
 class _SimpleCalculatorState extends State<SimpleCalculator> {
-
   String equation = '0';
   String result = '0';
   String expression = '';
@@ -34,45 +31,40 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
 
   buttonPressed(String buttonText) {
     setState(() {
-      if(buttonText == 'C') {
-        equation = '0' ;
-        result = '0' ;
-        equationFontSize = 38.0 ;
-        resultFontSize = 48.0 ;
-      } 
-      else if(buttonText == '⌫') {
-        equationFontSize = 48.0 ; 
-        resultFontSize = 38.0 ;
-        equation = equation.substring(0 , equation.length - 1) ;
-        
-        if(equation == '')
-        equation = '0' ;
-      } 
-      else if(buttonText == '=') {
-        equationFontSize = 38.0 ;
-        resultFontSize = 48.0 ;
+      if (buttonText == 'C') {
+        equation = '0';
+        result = '0';
+        equationFontSize = 38.0;
+        resultFontSize = 48.0;
+      } else if (buttonText == '⌫') {
+        equationFontSize = 48.0;
+        resultFontSize = 38.0;
+        equation = equation.substring(0, equation.length - 1);
+
+        if (equation == '') equation = '0';
+      } else if (buttonText == '=') {
+        equationFontSize = 38.0;
+        resultFontSize = 48.0;
 
         expression = equation;
         expression = expression.replaceAll('×', '*');
-        expression = expression.replaceAll('+', '/');
+        expression = expression.replaceAll('÷', '/');
 
         try {
-          Parser p =Parser() ;
+          Parser p = Parser();
           Expression exp = p.parse(expression);
 
           ContextModel cm = ContextModel();
           result = '${exp.evaluate(EvaluationType.REAL, cm)}';
-        }
-        catch(error) {
+        } catch (error) {
           result = 'Error';
         }
-      } 
-      else {
-        equationFontSize = 48.0 ; 
-        resultFontSize = 38.0 ;
+      } else {
+        equationFontSize = 48.0;
+        resultFontSize = 38.0;
 
-        if(equation =='0') {
-          equation = buttonText ;
+        if (equation == '0') {
+          equation = buttonText;
         } else {
           equation = equation + buttonText;
         }
@@ -130,7 +122,13 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
                 )),
           ),
           Expanded(
-            child: Divider(),
+            child: Divider(
+              color: Colors.black,
+            ),
+          ),
+          Text('ENJOY!!!!' , style: TextStyle(fontSize: 40.0)),
+          Container(
+            height: 20.0,
           ),
           Row(
             mainAxisAlignment: MainAxisAlignment.center,
@@ -144,25 +142,21 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
                       buildButton('⌫', 1, Colors.blue),
                       buildButton('÷', 1, Colors.blue)
                     ]),
-
                     TableRow(children: [
                       buildButton('7', 1, Colors.black54),
                       buildButton('8', 1, Colors.black54),
                       buildButton('9', 1, Colors.black54)
                     ]),
-
                     TableRow(children: [
                       buildButton('4', 1, Colors.black54),
                       buildButton('5', 1, Colors.black54),
                       buildButton('6', 1, Colors.black54)
                     ]),
-
                     TableRow(children: [
                       buildButton('1', 1, Colors.black54),
                       buildButton('2', 1, Colors.black54),
                       buildButton('3', 1, Colors.black54)
                     ]),
-
                     TableRow(children: [
                       buildButton('.', 1, Colors.black54),
                       buildButton('0', 1, Colors.black54),
@@ -171,34 +165,22 @@ class _SimpleCalculatorState extends State<SimpleCalculator> {
                   ],
                 ),
               ),
-
               Container(
                 width: MediaQuery.of(context).size.width * 0.25,
                 child: Table(
                   children: [
-                    TableRow(
-                      children: [
-                        buildButton('×', 1, Colors.blue),
-                      ]
-                    ),
-
-                    TableRow(
-                      children: [
-                        buildButton('-', 1, Colors.blue),
-                      ]
-                    ),
-
-                    TableRow(
-                      children: [
-                        buildButton('+', 1, Colors.blue),
-                      ]
-                    ),
-
-                    TableRow(
-                      children: [
-                        buildButton('=', 2, Colors.redAccent),
-                      ]
-                    )
+                    TableRow(children: [
+                      buildButton('×', 1, Colors.blue),
+                    ]),
+                    TableRow(children: [
+                      buildButton('-', 1, Colors.blue),
+                    ]),
+                    TableRow(children: [
+                      buildButton('+', 1, Colors.blue),
+                    ]),
+                    TableRow(children: [
+                      buildButton('=', 2, Colors.redAccent),
+                    ])
                   ],
                 ),
               )
